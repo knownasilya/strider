@@ -59,7 +59,7 @@ describe('middleware', function() {
         }
       };
       var body;
-      var response_api = {end: function(b) {body = b;}};
+      var response_api = { status: function(s) { return { json: function (b) { body = b; } }}};
 
       middleware.requireBody(["email", "name"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
