@@ -59,8 +59,8 @@ describe('middleware', function () {
       };
       var mockRes = httpMocks.createResponse();
 
-      middleware.requireBody(['email', 'name'])(mock_req, response_api, function() {
-        response_api.statusCode = 200;
+      middleware.requireBody(['email', 'name'])(mock_req, mockRes, function() {
+        mockRes.statusCode = 200;
       });
 
       mockRes.statusCode.should.eql(200);
@@ -73,10 +73,10 @@ describe('middleware', function () {
         }
       };
       var body;
-      var response_api = { status: function(s) { return { json: function (b) { body = b; } }}};
+      var mockRes = httpMocks.createResponse();
 
-      middleware.requireBody(["email", "name"])(mock_req, response_api, function() {
-        response_api.statusCode = 200;
+      middleware.requireBody(["email", "name"])(mock_req, mockRes, function() {
+        mockRes.statusCode = 200;
       });
 
       mockRes.statusCode.should.eql(400);
@@ -89,10 +89,10 @@ describe('middleware', function () {
         body: {}
       };
       var body;
-      var response_api = {end: function(b) {body = b;}};
+      var mockRes = httpMocks.createResponse();
 
-      middleware.requireBody(['email', 'name'])(mock_req, response_api, function() {
-        response_api.statusCode = 200;
+      middleware.requireBody(['email', 'name'])(mock_req, mockRes, function() {
+        mockRes.statusCode = 200;
       });
 
       mockRes.statusCode.should.eql(400);
